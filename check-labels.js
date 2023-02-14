@@ -1,9 +1,9 @@
 import { execSync } from 'child_process';
 // import { Version3Client } from 'jira.js';
 
-console.log(process.argv.join(', '));
+console.log(process.env[GITHUB_REF_NAME]);
 
-const branchName = process.argv[2];
+const branchName = process.env[GITHUB_REF_NAME];
 const ticketName = branchName.split('/')[0];
 
 console.log(branchName, ticketName);
