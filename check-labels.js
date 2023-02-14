@@ -20,4 +20,7 @@ const client = new Version3Client({
   },
 });
 
-console.log(await getLabelsForIssue(ticketName));
+const ticketLabels = await getLabelsForIssue(ticketName);
+if (!ticketLabels.includes('self-check:approved')) {
+  throw new Error('Self-check is not completed!');
+}
