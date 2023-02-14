@@ -29,5 +29,5 @@ jobs:
       - name: Setup
         run: npm install
 
-      - name: Test node
+      - name: Check Jira labels
         run: npm run check-labels
