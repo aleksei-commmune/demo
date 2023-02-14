@@ -1,5 +1,8 @@
 import { Version3Client } from 'jira.js';
 
+import core from '@actions/core';
+import github from '@actions/github';
+
 const branchName = process.env['GITHUB_HEAD_REF'];
 const ticketName = branchName.split('/')[0];
 
@@ -22,5 +25,5 @@ const client = new Version3Client({
 
 const ticketLabels = await getLabelsForIssue(ticketName);
 if (!ticketLabels.includes('self-check:approved')) {
-  throw new Error('Self-check is not completed!');
+  core.setFailed('Self-check is not completed!');
 }
