@@ -28,7 +28,7 @@ jobs:
 
       - name: Hello world action step
         id: hello
-        uses: ./actions
+        uses: ./.github/actions/
         with:
           who-to-greet: "Mona the Octocat"
 
