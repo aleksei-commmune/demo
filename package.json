@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "check-labels": "node check-labels.js"
+    "check-labels": "node check-labels.js",
+    "lint": "echo $"
   },
   "devDependencies": {
     "bun-types": "^0.5.0"

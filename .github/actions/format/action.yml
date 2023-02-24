@@ -8,6 +8,5 @@ runs:
   using: "composite"
   steps:
     - name: Lint
-      working-directory: ${{ inputs.dir }}
-      run: npm run lint
+      run: npm run lint ${{ inputs.dir }}
       shell: bash
