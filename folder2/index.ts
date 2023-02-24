@@ -4,4 +4,5 @@ const useShared = () => {
   sharedFunction();
   console.log(2);
   console.log(3);
+  console.log(3);
 };
