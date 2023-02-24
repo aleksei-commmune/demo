@@ -8,11 +8,11 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "folder2/**"
-      - "shared/"
+      - "shared/**"
   push:
     paths:
       - "folder2/**"
-      - "shared/"
+      - "shared/**"
     # branches: [develop, master]
 
 concurrency:
