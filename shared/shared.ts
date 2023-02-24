@@ -1,1 +1,3 @@
-export const sharedFunction = () => {};
+export const sharedFunction = () => {
+  console.log('shared');
+};
