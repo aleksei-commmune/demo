@@ -1,0 +1,14 @@
+{
+  "name": "demo",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "check-labels": "node check-labels.js"
+  },
+  "devDependencies": {
+    "bun-types": "^0.5.0"
+  },
+  "dependencies": {
+    "jira.js": "^2.16.0"
+  }
+}

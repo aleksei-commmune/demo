@@ -1,0 +1,26 @@
+name: 'Cache node_modules'
+description: 'Repeating code for access the node_modules cache'
+outputs:
+  cache-hit:
+    description: 'Cache hit from cache step'
+    value: ${{ steps.cache-npm.outputs.cache-hit }}
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: .node-version
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: |
+          **/node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
