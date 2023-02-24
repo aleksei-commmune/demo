@@ -7,12 +7,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
-      - "./folder2/**/*"
-      - "./shared/**/*"
+      - "./folder2/"
+      - "./shared/"
   push:
     paths:
-      - "./folder2/**/*"
-      - "./shared/**/*"
+      - "./folder2/"
+      - "./shared/"
     # branches: [develop, master]
 
 concurrency:
