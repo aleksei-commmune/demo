@@ -6,9 +6,6 @@ env:
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
-    paths:
-      - "**"
-      - "./shared/"
   push:
     paths:
       - "./folder2/"
