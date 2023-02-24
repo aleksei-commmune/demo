@@ -11,7 +11,7 @@ on:
       - "./shared/**"
   push:
     paths:
-      - "./folder1/**"
+      - "./folder2/**"
       - "./shared/**"
     # branches: [develop, master]
 
