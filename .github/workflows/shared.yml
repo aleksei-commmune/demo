@@ -9,6 +9,9 @@ on:
     paths:
       - "./shared/**"
   push:
+    paths:
+      - "./folder1/**"
+      - "./shared/**"
     # branches: [develop, master]
 
 concurrency:
