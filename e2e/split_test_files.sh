@@ -4,7 +4,7 @@ input_file=specs
 num_files=$1
 
 # List all spec files
-find ./cypress/e2e -type f -name "*.cy.js" > $input_file
+find e2e/cypress/e2e -type f -name "*.cy.js" > $input_file
 
 # Split specs into chunks
 total_lines=$(wc -l < $input_file)
