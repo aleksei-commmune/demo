@@ -38,5 +38,5 @@ jobs:
       - name: Run tests
         working-directory: e2e
         run: |
-          npm install
-          npm run cypress:run:specs ${{ matrix.spec }}
+          bun install
+          bun cypress:run:specs ./cypress/e2e/${{ matrix.spec }}.cy.js
