@@ -14,6 +14,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  split-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: "bash e2e/split_test_files.sh"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: specs
+          path: e2e/tmp
   e2e:
     strategy:
       fail-fast: false
@@ -21,6 +30,7 @@ jobs:
         spec: ["my", "my2", "my3"]
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
+    needs: split-tests
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -29,6 +39,9 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
+      - uses: actions/download-artifact@v2
+        with:
+          name: specs
       - name: Install Deps
         working-directory: folder1
         run: bun install
@@ -39,4 +52,5 @@ jobs:
         working-directory: e2e
         run: |
           npm install
-          npm run cypress:run:specs ./cypress/e2e/${{ matrix.spec }}.cy.js
+          files=$(paste -sd "," "tmp/spec_0${{matrix.spec}}")
+          npm run cypress:run:specs $files
