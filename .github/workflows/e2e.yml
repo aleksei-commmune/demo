@@ -22,7 +22,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: specs
-          path: e2e/tmp
+          path: tmp
   e2e:
     strategy:
       fail-fast: false
@@ -39,7 +39,7 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: specs
       - name: Install Deps
@@ -52,5 +52,5 @@ jobs:
         working-directory: e2e
         run: |
           npm install
-          files=$(paste -sd "," "tmp/spec_0${{matrix.spec}}")
+          files=$(paste -sd "," "../tmp/spec_0${{matrix.spec}}")
           npm run cypress:run:specs $files
