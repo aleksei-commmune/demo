@@ -30,7 +30,6 @@ jobs:
       matrix:
         spec: ["1", "2", "3"]
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
     needs: split-tests
     steps:
       - uses: actions/checkout@v3
@@ -44,19 +43,12 @@ jobs:
         with:
           name: specs
 
-      - name: Check file existence
-        id: check_files
-        uses: andstor/file-existence-action@v2
-        with:
-          files: "spec_0${{matrix.spec}}"
-
       - run: ls
       - name: Run Env
         working-directory: folder1
         run: bun dev &
 
       - name: Run tests
-        if: test -e ../spec_0${{matrix.spec}}
         working-directory: e2e
         run: |
           npm install
