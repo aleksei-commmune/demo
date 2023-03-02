@@ -16,4 +16,4 @@ if [ $remainder -gt 0 ]; then
 fi
 
 mkdir -p tmp
-gsplit --lines=$lines_per_file $input_file "./tmp/spec_" --numeric-suffixes=1
+split --lines=$lines_per_file $input_file "./tmp/spec_" --numeric-suffixes=1
