@@ -18,7 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: "bash e2e/split_test_files.sh 3"
+      - working-directory: "e2e"
+        run: "bash split_test_files.sh 3"
       - uses: actions/upload-artifact@v3
         with:
           name: specs
