@@ -50,5 +50,5 @@ jobs:
         working-directory: e2e
         run: |
           npm install
-          files=$(paste -sd "," "../tmp/spec_0${{matrix.spec}}")
+          files=$(paste -sd "," "../spec_0${{matrix.spec}}")
           npm run cypress:run:specs $files
