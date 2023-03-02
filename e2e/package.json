@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open -b chrome",
+    "cypress:run:specs": "cypress run -b chrome --spec"
   },
   "author": "",
   "license": "ISC",
