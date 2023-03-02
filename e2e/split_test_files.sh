@@ -15,5 +15,5 @@ if [ $remainder -gt 0 ]; then
     lines_per_file=$((lines_per_file + 1))
 fi
 
-mkdir -p tmp
+mkdir -p ../tmp
 split --lines=$lines_per_file $input_file "../tmp/spec_" --numeric-suffixes=1
