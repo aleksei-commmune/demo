@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        spec: ["my", "my2", "my3"]
+        spec: ["1", "2", "3"]
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     needs: split-tests
@@ -42,9 +42,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: specs
-      - name: Install Deps
-        working-directory: folder1
-        run: bun install
+      - run: ls
       - name: Run Env
         working-directory: folder1
         run: bun dev &
