@@ -53,3 +53,10 @@ jobs:
           npm install
           files=$(paste -sd "," "../spec_0${{matrix.spec}}")
           npm run cypress:run:specs $files
+      - name: Save screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          if-no-files-found: ignore
+          path: e2e/cypress/screenshots/**
