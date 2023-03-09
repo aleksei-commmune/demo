@@ -1,4 +1,4 @@
-name: Folder 2
+name: Folder 2 CI
 
 env:
   app_name: folder2
