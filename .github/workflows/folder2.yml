@@ -42,7 +42,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: kek
-          path: folder2
+          path: folder2/test
 
       - name: ls
         working-directory: folder2
