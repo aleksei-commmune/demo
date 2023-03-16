@@ -1,0 +1,45 @@
+name: E2E tests CI
+
+on: workflow_dispatch
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  should-run:
+    runs-on: ubuntu-latest
+    outputs:
+      folder1: ${{ steps.changes.outputs.folder1 }}
+      folder2: ${{ steps.changes.outputs.folder2 }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            folder1:
+              - 'folder1/**'
+            folder2:
+              - 'folder2/**'
+  folder1:
+    runs-on: ubuntu-latest
+    if: ${{needs.should-run.outputs.folder1 == 'true'}}
+    steps:
+      - run: echo "folder 1"
+  folder2:
+    runs-on: ubuntu-latest
+    if: ${{needs.should-run.outputs.folder2 == 'true'}}
+    steps:
+      - run: echo "folder 1"
+  success:
+    runs-on: ubuntu-latest
+    if: ${{always()}}
+    needs: [folder1, folder2]
+    steps:
+      - name: All tests ok
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
+      - name: Some tests failed
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
