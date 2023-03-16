@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{needs.should-run.outputs.folder2 == 'true'}}
     steps:
-      - run: echo "folder 1"
+      - run: exit 1
   success:
     runs-on: ubuntu-latest
     if: ${{always()}}
