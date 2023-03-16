@@ -27,11 +27,13 @@ jobs:
             folder2:
               - 'folder2/**'
   folder1:
+    needs: should-run
     runs-on: ubuntu-latest
     if: ${{needs.should-run.outputs.folder1 == 'true'}}
     steps:
       - run: echo "folder 1"
   folder2:
+    needs: should-run
     runs-on: ubuntu-latest
     if: ${{needs.should-run.outputs.folder2 == 'true'}}
     steps:
