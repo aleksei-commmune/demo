@@ -1,0 +1,38 @@
+name: Shared CI
+
+env:
+  app_name: shared
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [develop, master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  should-run:
+    runs-on: ubuntu-latest
+    outputs:
+      files-changed: ${{ steps.changes.outputs.shared }}
+
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            shared:
+              - 'shared/**'
+  lint:
+    runs-on: ubuntu-latest
+    needs: should-run
+    if: needs.should-run.outputs.files-changed === 'true'
+    steps:
+      - run: echo ${{needs.should-run.outputs.files-changed}}
+      - uses: actions/checkout@v3
+      - uses: './.github/actions/format'
+        with:
+          dir: ${{env.app_name}}
