@@ -7,12 +7,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
-      - "folder2/**"
-      - "shared/**"
+      - 'folder2/**'
+      - 'shared/**'
   push:
     paths:
-      - "folder2/**"
-      - "shared/**"
+      - 'folder2/**'
+      - 'shared/**'
     branches: [develop, main]
 
 concurrency:
@@ -28,6 +28,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: .node-version
-      - uses: "./.github/actions/format"
+      - uses: './.github/actions/format'
         with:
           dir: ${{env.app_name}}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: 'kek'
+          path: './index.ts'
