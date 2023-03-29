@@ -1,0 +1,19 @@
+name: Folder 2
+
+env:
+  app_name: folder2
+
+on:
+  pull_request:
+    types: [synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo ${{github.event_name}}
