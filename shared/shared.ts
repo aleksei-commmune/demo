@@ -1,3 +1,3 @@
 export const sharedFunction = () => {
-  console.log('shared');
+  console.log('shared synced?');
 };
