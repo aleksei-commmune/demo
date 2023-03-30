@@ -15,7 +15,7 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{github.ref_name}} ${{github.ref}} ${{github.event.pull_request}}
+      - run: echo ${{github.event.pull_request.head}} ${{github.event.pull_request.base}}
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
