@@ -5,8 +5,12 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
+    "start": "bun dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "echo \"Linting...\""
+  },
+  "dependencies": {
+    "unicode-lookup": "0.2.1"
   },
   "author": "",
   "license": "ISC"
