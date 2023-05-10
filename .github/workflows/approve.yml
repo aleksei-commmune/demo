@@ -4,6 +4,7 @@ on:
   pull_request_review:
 jobs:
   label:
+    permissions: write-all
     if: github.event.pull_request.draft == false
     timeout-minutes: 1
     runs-on: ubuntu-latest
