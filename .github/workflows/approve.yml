@@ -1,0 +1,17 @@
+name: Approve
+
+on:
+  pull_request_review:
+jobs:
+  label:
+    if: github.event.pull_request.draft == false
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dayone-jp/labeler@main
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          label: approved
+          set: ${{steps.approved.outputs.approved}}
