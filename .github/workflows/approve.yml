@@ -15,4 +15,4 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           label: approved
-          set: "true"
+          set: "undefined"
