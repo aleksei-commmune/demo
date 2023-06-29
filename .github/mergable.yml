@@ -1,0 +1,10 @@
+version: 2
+mergeable:
+  - when: pull_request.*
+    validate:
+      - do: payload
+        pull_request:
+          labels:
+            must_exclude:
+              regex: 'blocked'
+              key: 'name'
