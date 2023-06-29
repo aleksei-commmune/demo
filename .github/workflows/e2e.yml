@@ -18,3 +18,4 @@ jobs:
       - name: run
         run: |
           echo ${{ github.event.check_run.name }}}
+          exit 1
