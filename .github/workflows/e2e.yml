@@ -4,8 +4,9 @@ env:
   app_name: folder2
 
 on:
-  check_run:
-    types: [completed]
+  pull_request:
+    types: labeled
+    branches: main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,7 +16,8 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     steps:
-      - name: run
-        run: |
-          echo ${{ github.event.check_run.name }}}
-          exit 1
+      - uses: dayone-jp/target-branch-labeler@main
+        with:
+          release-target-branch: main
+          release-source-branch: shared-change
+          label: "kek"
