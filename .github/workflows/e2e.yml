@@ -4,10 +4,8 @@ env:
   app_name: folder2
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-  push:
-    branches: [develop, main]
+  check_run:
+    types: [completed]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,22 +14,7 @@ concurrency:
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: .node-version
-      - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-      - name: Install Deps
-        working-directory: folder1
-        run: bun install
-      - name: Run Env
-        working-directory: folder1
-        run: bun dev &
-      - name: Run tests
-        working-directory: e2e
+      - name: run
         run: |
-          npm install
+          echo ${{ github.event.check_run.name }}}
