@@ -1,0 +1,42 @@
+name: Block merge rule
+
+on:
+  pull_request:
+    types: [labeled, unlabeled]
+    branches: main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions: write-all
+    if: ${{github.event.label.name == 'block merge'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lock
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{github.event.action == 'labeled'}}
+        uses: octokit/request-action@v2.1.0
+        with:
+          route: PUT /repos/{owner}/{repo}/branches/{branch}/protection
+          owner: ${{github.repository_owner}}
+          repo: ${{github.repository}}
+          branch: "shared-change"
+          lock_branch: "true"
+
+      - name: Unlock
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{github.event.action == 'unlabeled'}}
+        uses: octokit/request-action@v2.1.0
+        with:
+          route: PUT /repos/{owner}/{repo}/branches/{branch}/protection
+          owner: ${{github.repository_owner}}
+          repo: ${{github.repository}}
+          branch: "shared-change"
+          lock_branch: "false"

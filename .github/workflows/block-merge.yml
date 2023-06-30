@@ -1,35 +1,35 @@
-name: Block merge to develop
+# name: Block merge to develop
 
-on:
-  pull_request:
-    types: [labeled, unlabeled]
-    branches: main
+# on:
+#   pull_request:
+#     types: [labeled, unlabeled]
+#     branches: main
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.ref }}
+#   cancel-in-progress: true
 
-jobs:
-  e2e:
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      issues: write
-      pull-requests: write
-    if: ${{github.event.label.name == 'block merge'}}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: dayone-jp/target-branch-labeler@main
-        name: Add block labels
-        if: ${{github.event.action == 'labeled'}}
-        with:
-          type: "add"
-          release-source-branch: shared-change
-          label: "block merge before release"
-      - uses: dayone-jp/target-branch-labeler@main
-        name: Remove block labels
-        if: ${{github.event.action == 'unlabeled'}}
-        with:
-          type: "remove"
-          release-source-branch: shared-change
-          label: "block merge before release"
+# jobs:
+#   e2e:
+#     env:
+#       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     permissions:
+#       issues: write
+#       pull-requests: write
+#     if: ${{github.event.label.name == 'block merge'}}
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: dayone-jp/target-branch-labeler@main
+#         name: Add block labels
+#         if: ${{github.event.action == 'labeled'}}
+#         with:
+#           type: "add"
+#           release-source-branch: shared-change
+#           label: "block merge before release"
+#       - uses: dayone-jp/target-branch-labeler@main
+#         name: Remove block labels
+#         if: ${{github.event.action == 'unlabeled'}}
+#         with:
+#           type: "remove"
+#           release-source-branch: shared-change
+#           label: "block merge before release"
