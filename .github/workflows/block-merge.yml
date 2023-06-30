@@ -11,6 +11,11 @@ concurrency:
 
 jobs:
   e2e:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      issues: write
+      pull-requests: write
     if: ${{github.event.label.name == 'block merge'}}
     runs-on: ubuntu-latest
     steps:
