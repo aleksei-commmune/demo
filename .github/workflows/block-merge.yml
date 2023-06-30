@@ -20,12 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: dayone-jp/target-branch-labeler@main
+        name: Add block labels
         if: ${{github.event.action == 'labeled'}}
         with:
           type: "add"
           release-source-branch: shared-change
           label: "block"
       - uses: dayone-jp/target-branch-labeler@main
+        name: Remove block labels
         if: ${{github.event.action == 'unlabeled'}}
         with:
           type: "remove"
