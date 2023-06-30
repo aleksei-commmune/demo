@@ -25,11 +25,11 @@ jobs:
         with:
           type: "add"
           release-source-branch: shared-change
-          label: "block"
+          label: "block merge before release"
       - uses: dayone-jp/target-branch-labeler@main
         name: Remove block labels
         if: ${{github.event.action == 'unlabeled'}}
         with:
           type: "remove"
           release-source-branch: shared-change
-          label: "block"
+          label: "block merge before release"
