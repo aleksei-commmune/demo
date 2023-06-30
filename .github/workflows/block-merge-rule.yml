@@ -11,15 +11,13 @@ concurrency:
 
 jobs:
   e2e:
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions: write-all
     if: ${{github.event.label.name == 'block merge'}}
     runs-on: ubuntu-latest
     steps:
       - name: Lock
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TEST_KEY }}
         if: ${{github.event.action == 'labeled'}}
         uses: actions/github-script@v6
         with:
