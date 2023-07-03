@@ -20,6 +20,7 @@ jobs:
         if: ${{github.event.action == 'labeled'}}
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.TEST_KEY}}
           script: |
             github.request('PUT /repos/{owner}/{repo}/rulesets/{ruleset_id}', {
               owner: context.repo.owner,
@@ -36,6 +37,7 @@ jobs:
         if: ${{github.event.action == 'unlabeled'}}
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.TEST_KEY}}
           script: |
             github.request('PUT /repos/{owner}/{repo}/rulesets/{ruleset_id}', {
               owner: context.repo.owner,
