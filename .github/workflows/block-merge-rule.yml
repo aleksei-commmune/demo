@@ -9,34 +9,43 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: write-all
+
 jobs:
   e2e:
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    permissions: write-all
     if: ${{github.event.label.name == 'block merge'}}
     runs-on: ubuntu-latest
     steps:
       - name: Lock
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{github.event.action == 'labeled'}}
-        uses: octokit/request-action@v2.1.0
+        uses: actions/github-script@v6
         with:
-          route: PUT /repos/{owner}/{repo}/branches/{branch}/protection
-          owner: ${{github.repository_owner}}
-          repo: ${{github.repository}}
-          branch: "shared-change"
-          lock_branch: "true"
+          github-token: ${{ secrets.TEST_KEY}}
+          script: |
+            github.request('PUT /repos/{owner}/{repo}/rulesets/{ruleset_id}', {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: 'shared-change',
+              ruleset_id: 43641,
+              enforcement: 'active',
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              }
+            })
 
       - name: Unlock
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{github.event.action == 'unlabeled'}}
-        uses: octokit/request-action@v2.1.0
+        uses: actions/github-script@v6
         with:
-          route: PUT /repos/{owner}/{repo}/branches/{branch}/protection
-          owner: ${{github.repository_owner}}
-          repo: ${{github.repository}}
-          branch: "shared-change"
-          lock_branch: "false"
+          github-token: ${{ secrets.TEST_KEY}}
+          script: |
+            github.request('PUT /repos/{owner}/{repo}/rulesets/{ruleset_id}', {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: 'shared-change',
+              ruleset_id: 43641,
+              enforcement: 'disabled',
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              }
+            })
