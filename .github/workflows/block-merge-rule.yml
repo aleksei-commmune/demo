@@ -9,11 +9,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: write-all
+
 jobs:
   e2e:
-    permissions: write-all
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     if: ${{github.event.label.name == 'block merge'}}
     runs-on: ubuntu-latest
     steps:
