@@ -17,4 +17,5 @@ jobs:
     if: ${{(github.event.label.name == 'approved' || contains(github.event.pull_request.labels.*.name, 'approved')) && github.event.pull_request.state != 'closed'}}
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Unsuccessful'
+      - run: echo ${{github.event.pull_request.state}}
+      - run: echo "Unsuccessful"
